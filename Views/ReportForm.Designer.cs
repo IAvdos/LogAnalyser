@@ -45,6 +45,7 @@
 		saveButton = new Button();
 		saveFileDialog1 = new SaveFileDialog();
 		reportGrid = new DataGridView();
+		label5 = new Label();
 		groupBox1.SuspendLayout();
 		groupBox2.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)reportGrid).BeginInit();
@@ -53,16 +54,17 @@
 		// label1
 		// 
 		label1.AutoSize = true;
-		label1.Location = new Point(247, 23);
+		label1.Font = new Font("Segoe UI", 14F);
+		label1.Location = new Point(517, 9);
 		label1.Name = "label1";
-		label1.Size = new Size(39, 15);
+		label1.Size = new Size(63, 25);
 		label1.TabIndex = 0;
 		label1.Text = "Отчет";
 		// 
 		// label2
 		// 
 		label2.AutoSize = true;
-		label2.Location = new Point(48, 56);
+		label2.Location = new Point(312, 44);
 		label2.Name = "label2";
 		label2.Size = new Size(184, 15);
 		label2.TabIndex = 1;
@@ -72,7 +74,7 @@
 		// 
 		instrumentNumberBox.FormattingEnabled = true;
 		instrumentNumberBox.Items.AddRange(new object[] { "4460-967", "4460-1165", "4460-953", "4460-1257" });
-		instrumentNumberBox.Location = new Point(238, 53);
+		instrumentNumberBox.Location = new Point(517, 41);
 		instrumentNumberBox.Name = "instrumentNumberBox";
 		instrumentNumberBox.Size = new Size(121, 23);
 		instrumentNumberBox.TabIndex = 2;
@@ -81,7 +83,7 @@
 		// startPeriodBox
 		// 
 		startPeriodBox.FormattingEnabled = true;
-		startPeriodBox.Location = new Point(227, 94);
+		startPeriodBox.Location = new Point(517, 85);
 		startPeriodBox.Name = "startPeriodBox";
 		startPeriodBox.Size = new Size(121, 23);
 		startPeriodBox.TabIndex = 4;
@@ -89,16 +91,16 @@
 		// label4
 		// 
 		label4.AutoSize = true;
-		label4.Location = new Point(363, 98);
+		label4.Location = new Point(653, 89);
 		label4.Name = "label4";
-		label4.Size = new Size(21, 15);
+		label4.Size = new Size(24, 15);
 		label4.TabIndex = 5;
-		label4.Text = "по";
+		label4.Text = "по:";
 		// 
 		// endPeriodBox
 		// 
 		endPeriodBox.FormattingEnabled = true;
-		endPeriodBox.Location = new Point(412, 96);
+		endPeriodBox.Location = new Point(716, 86);
 		endPeriodBox.Name = "endPeriodBox";
 		endPeriodBox.Size = new Size(121, 23);
 		endPeriodBox.TabIndex = 6;
@@ -106,7 +108,7 @@
 		// label3
 		// 
 		label3.AutoSize = true;
-		label3.Location = new Point(378, 55);
+		label3.Location = new Point(662, 44);
 		label3.Name = "label3";
 		label3.Size = new Size(49, 15);
 		label3.TabIndex = 9;
@@ -114,9 +116,8 @@
 		// 
 		// areaNameBox
 		// 
-		areaNameBox.Location = new Point(446, 53);
+		areaNameBox.Location = new Point(737, 41);
 		areaNameBox.Name = "areaNameBox";
-		areaNameBox.ReadOnly = true;
 		areaNameBox.Size = new Size(100, 23);
 		areaNameBox.TabIndex = 10;
 		// 
@@ -124,7 +125,7 @@
 		// 
 		periodStatisticButton.AutoSize = true;
 		periodStatisticButton.Checked = true;
-		periodStatisticButton.Location = new Point(12, 14);
+		periodStatisticButton.Location = new Point(10, 14);
 		periodStatisticButton.Name = "periodStatisticButton";
 		periodStatisticButton.Size = new Size(79, 19);
 		periodStatisticButton.TabIndex = 11;
@@ -148,28 +149,26 @@
 		// 
 		groupBox1.Controls.Add(dayStatisticButton);
 		groupBox1.Controls.Add(periodStatisticButton);
-		groupBox1.Location = new Point(15, 74);
+		groupBox1.Location = new Point(271, 71);
 		groupBox1.Name = "groupBox1";
-		groupBox1.Size = new Size(186, 48);
+		groupBox1.Size = new Size(186, 46);
 		groupBox1.TabIndex = 13;
 		groupBox1.TabStop = false;
-		groupBox1.Text = "groupBox1";
 		// 
 		// groupBox2
 		// 
 		groupBox2.Controls.Add(forWorkShiftButton);
 		groupBox2.Controls.Add(forAllDayButton);
-		groupBox2.Location = new Point(22, 142);
+		groupBox2.Location = new Point(271, 132);
 		groupBox2.Name = "groupBox2";
-		groupBox2.Size = new Size(179, 38);
+		groupBox2.Size = new Size(186, 46);
 		groupBox2.TabIndex = 14;
 		groupBox2.TabStop = false;
-		groupBox2.Text = "groupBox2";
 		// 
 		// forWorkShiftButton
 		// 
 		forWorkShiftButton.AutoSize = true;
-		forWorkShiftButton.Location = new Point(88, 15);
+		forWorkShiftButton.Location = new Point(104, 14);
 		forWorkShiftButton.Name = "forWorkShiftButton";
 		forWorkShiftButton.Size = new Size(76, 19);
 		forWorkShiftButton.TabIndex = 1;
@@ -196,16 +195,16 @@
 		workShiftNumberBox.Enabled = false;
 		workShiftNumberBox.FormattingEnabled = true;
 		workShiftNumberBox.Items.AddRange(new object[] { "Первая", "Вторая", "Третья", "Четвертая" });
-		workShiftNumberBox.Location = new Point(234, 152);
+		workShiftNumberBox.Location = new Point(498, 140);
 		workShiftNumberBox.Name = "workShiftNumberBox";
 		workShiftNumberBox.Size = new Size(120, 76);
 		workShiftNumberBox.TabIndex = 15;
 		// 
 		// showResultButton
 		// 
-		showResultButton.Location = new Point(412, 174);
+		showResultButton.Location = new Point(715, 146);
 		showResultButton.Name = "showResultButton";
-		showResultButton.Size = new Size(75, 23);
+		showResultButton.Size = new Size(89, 33);
 		showResultButton.TabIndex = 17;
 		showResultButton.Text = "Расчитать";
 		showResultButton.UseVisualStyleBackColor = true;
@@ -213,7 +212,7 @@
 		// 
 		// saveButton
 		// 
-		saveButton.Location = new Point(247, 396);
+		saveButton.Location = new Point(537, 396);
 		saveButton.Name = "saveButton";
 		saveButton.Size = new Size(75, 23);
 		saveButton.TabIndex = 18;
@@ -224,16 +223,26 @@
 		// 
 		reportGrid.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 		reportGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-		reportGrid.Location = new Point(15, 234);
+		reportGrid.Location = new Point(12, 234);
 		reportGrid.Name = "reportGrid";
-		reportGrid.Size = new Size(559, 156);
+		reportGrid.Size = new Size(1144, 154);
 		reportGrid.TabIndex = 19;
+		// 
+		// label5
+		// 
+		label5.AutoSize = true;
+		label5.Location = new Point(480, 89);
+		label5.Name = "label5";
+		label5.Size = new Size(16, 15);
+		label5.TabIndex = 20;
+		label5.Text = "с:";
 		// 
 		// ReportForm
 		// 
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(586, 431);
+		ClientSize = new Size(1184, 431);
+		Controls.Add(label5);
 		Controls.Add(reportGrid);
 		Controls.Add(saveButton);
 		Controls.Add(showResultButton);
@@ -281,4 +290,5 @@
 		private Button saveButton;
 		private SaveFileDialog saveFileDialog1;
 	private DataGridView reportGrid;
+	private Label label5;
 }

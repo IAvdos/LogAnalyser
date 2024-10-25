@@ -1,14 +1,14 @@
 ﻿public class ReportFormPresenter : IPresenter
 {
-    public ReportFormPresenter(IReportView view, ReportModel model)
-    {
-        _model = model;
-        _view = view;
-    }
-    public void Run()
+	public ReportFormPresenter(IReportView view, ReportModel model)
 	{
-        _view.GetStatisticDatesForInstrument += GetStatisticDatesForInstrument;
-        _view.GetStatisticReport += GetStatisticReport;
+		_model = model;
+		_view = view;
+	}
+	public void Run()
+	{
+		_view.GetStatisticDatesForInstrument += GetStatisticDatesForInstrument;
+		_view.GetStatisticReport += GetStatisticReport;
 		_view.Show();
 	}
 
@@ -23,7 +23,8 @@
 		}
 		if(workShifts.Count() != 0)
 		{
-			dayLogStatistic = _model.GetUnionWorkShiftStatisticForPeriod(startPeriod, endPeriod, workShifts, instrumentNumber, out calculatedStatistic);
+			dayLogStatistic = _model.GetUnionWorkShiftStatisticForPeriod
+				(startPeriod, endPeriod, workShifts, instrumentNumber, out calculatedStatistic);
 		}
 
 		return ConvertToStatisticReport(dayLogStatistic, calculatedStatistic);
@@ -60,5 +61,5 @@
 	}
 
 	IReportView _view;
-    ReportModel _model;
+	ReportModel _model;
 }

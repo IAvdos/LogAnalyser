@@ -6,25 +6,30 @@ public partial class ReportForm : Form, IReportView
 	public ReportForm()
 	{
 		InitializeComponent();
-
+ 		PrepareReportGrid();
 	}
 
 	private void showResultButton_Click(object sender, EventArgs e)
-	{ 		PrepareReportGrid();
-		ReadControlsData();
-		reportGrid.ClearSelection();
-		List<StatisticReport> report = null;
-
-		if(forAllDayButton.Checked)
+	{
+		if (!ReadControlsData())
 		{
-			report = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate, new int[0], _instrumentNumber);
+			MessageBox.Show("Заполните все поля.");
 		}
-		if(forWorkShiftButton.Checked)
+		else
 		{
-			report = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate, _checkedWorkShifts, _instrumentNumber);
-		}
+			List<StatisticReport> report = null;
 
-		ShowReport(report);
+			if (forAllDayButton.Checked)
+			{
+				report = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate, new int[0], _instrumentNumber);
+			}
+			if (forWorkShiftButton.Checked)
+			{
+				report = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate, _checkedWorkShifts, _instrumentNumber);
+			}
+
+			ShowReport(report);
+		}
 	}
 
 	private void ShowReport(List<StatisticReport> reports)
@@ -32,8 +37,11 @@ public partial class ReportForm : Form, IReportView
 		reportGrid.DataSource = reports;
 	}
 
-	private void ReadControlsData()
+	private bool ReadControlsData()
 	{
+		if(instrumentNumberBox.SelectedIndex == -1)
+			return false;
+
 		_instrumentNumber = instrumentNumberBox.SelectedItem.ToString();
 		_startPeriodDate = (DateTime)startPeriodBox.SelectedItem;
 		_endPeriodDate = (DateTime)endPeriodBox.SelectedItem;
@@ -44,23 +52,31 @@ public partial class ReportForm : Form, IReportView
 		if (forWorkShiftButton.Checked)
 		{
 			_checkedWorkShifts = workShiftNumberBox.CheckedIndices.ToArray();
+			if (_checkedWorkShifts.Length == 0)
+				return false;
 		}
+
+		return true;
 	}
 
 	private void PrepareReportGrid()
 	{
+		reportGrid.AutoGenerateColumns = false;
+
 		reportGrid.Columns.AddRange(
-			new DataGridViewCheckBoxColumn { DataPropertyName = "NumberOfWorkShift", HeaderText = "Смена" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "SampleCount", HeaderText = "Количество проб" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "AnalysisOkCount", HeaderText = "Успешный анализ" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "PreparetionCount", HeaderText = "Количество обработок" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "ErrorCount", HeaderText = "Количество ошибок" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "SummTestModeTime", HeaderText = "Время Test mode" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "AverageAnalysisTime", HeaderText = "Ср. время анализа" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "AverageOneSideRuns", HeaderText = "Ср. кол-во прожигов на стороне" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "AverageBadSurfaceRate", HeaderText = "Ср. процент плохой поверхности" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "AverageSamplePreparation", HeaderText = "Ср. кол-во обработок" },
-			new DataGridViewCheckBoxColumn { DataPropertyName = "PercentBadSample", HeaderText = "Процент брака" });
+			new DataGridViewTextBoxColumn { DataPropertyName = "NumberOfWorkShift", HeaderText = "Смена" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "SampleCount", HeaderText = "Количество проб" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "AnalysisOkCount", HeaderText = "Успешный анализ" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "PreparetionCount", HeaderText = "Количество обработок" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "ErrorCount", HeaderText = "Количество ошибок" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "SummTestModeTime", HeaderText = "Время Test mode" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "AverageAnalysisTime", HeaderText = "Ср. время анализа" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "AverageOneSideRuns", HeaderText = "Ср. кол-во прожигов на стороне" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "AverageBadSurfaceRate", HeaderText = "Ср. процент плохой поверхности" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "AverageSamplePreparation", HeaderText = "Ср. кол-во обработок" },
+			new DataGridViewTextBoxColumn { DataPropertyName = "PercentBadSample", HeaderText = "Процент брака" });
+
+		reportGrid.Columns[6].DefaultCellStyle.Format = "mm\\:ss";
 	}
 
 	private void instrumentNumberBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,11 +101,13 @@ public partial class ReportForm : Form, IReportView
 	private void dayStatisticButton_CheckedChanged(object sender, EventArgs e)
 	{
 		endPeriodBox.Enabled = false;
+		label4.Enabled = false;
 	}
 
 	private void periodStatisticButton_CheckedChanged(object sender, EventArgs e)
 	{
 		endPeriodBox.Enabled = true;
+		label4.Enabled = true;
 	}
 
 	private void forWorkShiftButton_CheckedChanged(object sender, EventArgs e)
