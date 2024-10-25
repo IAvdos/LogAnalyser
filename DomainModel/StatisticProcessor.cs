@@ -87,8 +87,7 @@
 		foreach (var logStatistic in logStatistics)
 		{
 			var analysisCount = logStatistic.PreparetionCount - logStatistic.BadSurfaceSampleCount;
-
-			var averageAnalysisTime = logStatistic.SummAnalysisTime.Divide(logStatistic.SampleCount);
+			var averageAnalysisTime = new TimeSpan(logStatistic.SummAnalysisTime.Ticks / (logStatistic.SampleCount == 0 ? 1 : logStatistic.SampleCount));
 			var averageSamplePreparetion = logStatistic.SampleCount == 0 ? 0 : Math.Round((decimal)logStatistic.PreparetionCount /
 					logStatistic.SampleCount, 1);
 			// TODO: Runs for one side or sample?

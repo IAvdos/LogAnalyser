@@ -72,14 +72,18 @@ public class ExcelOperator
 		dayLogStatistic.AnalysisOkCount = row.GetValue<int>(5);
 		dayLogStatistic.NotAllowedRunsCount = row.GetValue<int>(6);
 		dayLogStatistic.RunsCount = row.GetValue<int>(7);
-		dayLogStatistic.SummAnalysisTime = TimeOnly.FromDateTime(DateTime.FromOADate(row.GetValue<double>(8)));
+
+		// TODO: Павел, вот такого рода преобразования (строка ниже), это норм или уже грязь?
+		dayLogStatistic.SummAnalysisTime = TimeSpan.FromTicks(TimeOnly.FromDateTime(DateTime.FromOADate(row.GetValue<double>(8))).Ticks);
+		// Был вариант короче			   TimeSpan.FromTicks(DateTime.FromOADate(row.GetValue<double>(8)).Ticks) но он дает некорректные результаты.
+
 		dayLogStatistic.PreparetionCount = row.GetValue<int>(9);
 		dayLogStatistic.SummBadSurfaceRate = row.GetValue<int>(10);
 		dayLogStatistic.OutOfQualityAnalisisCount = row.GetValue<int>(11);
 		dayLogStatistic.NotReproducibleAnalisisCount = row.GetValue<int>(12);
 		dayLogStatistic.BadSurfaceSampleCount = row.GetValue<int>(13);
 		dayLogStatistic.ErrorCount = row.GetValue<int>(14);
-		dayLogStatistic.SummTestModeTime = TimeOnly.FromDateTime(DateTime.FromOADate(row.GetValue<double>(15)));
+		dayLogStatistic.SummTestModeTime = TimeSpan.FromTicks(TimeOnly.FromDateTime(DateTime.FromOADate(row.GetValue<double>(15))).Ticks);
 
 		return dayLogStatistic;
 	}

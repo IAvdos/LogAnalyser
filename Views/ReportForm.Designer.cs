@@ -203,7 +203,7 @@
 		// 
 		// showResultButton
 		// 
-		showResultButton.Location = new Point(66, 525);
+		showResultButton.Location = new Point(412, 174);
 		showResultButton.Name = "showResultButton";
 		showResultButton.Size = new Size(75, 23);
 		showResultButton.TabIndex = 17;
@@ -213,7 +213,7 @@
 		// 
 		// saveButton
 		// 
-		saveButton.Location = new Point(303, 524);
+		saveButton.Location = new Point(247, 396);
 		saveButton.Name = "saveButton";
 		saveButton.Size = new Size(75, 23);
 		saveButton.TabIndex = 18;
@@ -222,18 +222,18 @@
 		// 
 		// reportGrid
 		// 
-		reportGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		reportGrid.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 		reportGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-		reportGrid.Location = new Point(15, 269);
+		reportGrid.Location = new Point(15, 234);
 		reportGrid.Name = "reportGrid";
-		reportGrid.Size = new Size(559, 150);
+		reportGrid.Size = new Size(559, 156);
 		reportGrid.TabIndex = 19;
 		// 
 		// ReportForm
 		// 
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(586, 565);
+		ClientSize = new Size(586, 431);
 		Controls.Add(reportGrid);
 		Controls.Add(saveButton);
 		Controls.Add(showResultButton);
@@ -248,6 +248,7 @@
 		Controls.Add(instrumentNumberBox);
 		Controls.Add(label2);
 		Controls.Add(label1);
+		MaximumSize = new Size(1200, 470);
 		Name = "ReportForm";
 		Text = "ReportForm";
 		groupBox1.ResumeLayout(false);

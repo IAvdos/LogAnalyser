@@ -14,6 +14,8 @@ public static class EnumerableExtention
 		return result;
 	}
 
+
+
 	public static DataTable ToDataTable(this IEnumerable<DayLogStatistic> list)
 	{
 		DataTable dt = new DataTable();

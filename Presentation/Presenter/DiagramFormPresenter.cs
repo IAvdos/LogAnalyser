@@ -68,13 +68,13 @@
 			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, d.ErrorCount)).ToList();
 
 		if (statisticTarget == "Время Test mode")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, d.SummTestModeTime.ToDouble())).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, Math.Round(d.SummTestModeTime.ToMinutes(), 2))).ToList();
 
 		if (statisticTarget == "Среднее количество \"заточек\"")
 			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, (double)d.AverageSamplePreparation)).ToList();
 
 		if (statisticTarget == "Среднее время анализа")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, d.AverageAnalysisTime.ToDouble())).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate,  Math.Round(d.AverageAnalysisTime.ToMinutes(), 2))).ToList();
 
 		if (statisticTarget == "Средний процент плохой пов. пробы")
 			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, (double)d.AverageBadSurfaceRate)).ToList();

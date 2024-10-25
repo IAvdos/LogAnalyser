@@ -27,7 +27,7 @@ public class DayLogStatistic
 	public int RunsCount { get; set; } = 0;
 
 	[EpplusTableColumn(NumberFormat = "hh:mm:ss")]
-	public TimeOnly SummAnalysisTime { get; set; } = new TimeOnly(0, 0, 0);
+	public TimeSpan SummAnalysisTime { get; set; } = new TimeSpan(0, 0, 0);
 	public int PreparetionCount { get; set; } = 0;
 	public decimal SummBadSurfaceRate { get; set; } = 0;
 	public int OutOfQualityAnalisisCount { get; set; } = 0;
@@ -36,7 +36,7 @@ public class DayLogStatistic
 	public int ErrorCount { get; set; }
 
 	[EpplusTableColumn(NumberFormat = "hh:mm:ss")]
-	public TimeOnly SummTestModeTime { get; set; }
+	public TimeSpan SummTestModeTime { get; set; }
 
 // TODO: finger hole not detected? And fields to db.
 

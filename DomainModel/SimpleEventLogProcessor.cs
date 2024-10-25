@@ -90,10 +90,11 @@ public class SimpleEventLogProcessor : ILogProcessor
 				startErrorTime = messageTime;
 				continue;
 			}
-
+			//TODO: incorrect results, fix this
 			if (Regex.IsMatch(line, "Start Automatic Mode"))
 			{
-				_dayLogStatistics[actualPart].SummTestModeTime = _dayLogStatistics[actualPart].SummTestModeTime.Add(messageTime.Subtract(startErrorTime));
+				_dayLogStatistics[actualPart].SummTestModeTime = new TimeSpan(_dayLogStatistics[actualPart].SummTestModeTime.Ticks +
+						(messageTime.Ticks - startErrorTime.Ticks));
 				userAction = false;
 				continue;
 			}
@@ -138,7 +139,7 @@ public class SimpleEventLogProcessor : ILogProcessor
 				var value = "00:" + Regex.Match(line, @"\d{2}[']\d{2}").Value.Replace('\'', ':');
 				if (value == "00:") continue;
 
-				_dayLogStatistics[actualPart].SummAnalysisTime = _dayLogStatistics[actualPart].SummAnalysisTime.Add(TimeOnly.Parse(value));
+				_dayLogStatistics[actualPart].SummAnalysisTime = _dayLogStatistics[actualPart].SummAnalysisTime.Add(TimeSpan.Parse(value));
 				continue;
 			}
 
