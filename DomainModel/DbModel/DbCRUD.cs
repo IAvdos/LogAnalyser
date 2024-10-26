@@ -4,7 +4,7 @@
 	{
 		using(StatisticDBContext context = new StatisticDBContext())
 		{
-			context.Add(statistic.ToWorkShiftStatistic());
+			//context.Add(statistic.ToWorkShiftStatistic());
 
 			context.SaveChanges();
 		}

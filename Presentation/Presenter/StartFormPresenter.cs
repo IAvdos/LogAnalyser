@@ -1,6 +1,4 @@
-﻿using DomainModel;
-
-public class StartFormPresenter : IPresenter
+﻿public class StartFormPresenter : IPresenter
 {
 	readonly IStartView _startForm;
 	readonly StartFormModel _startFormModel;
@@ -24,12 +22,5 @@ public class StartFormPresenter : IPresenter
 	public void Run()
 	{
 		_startForm.Show();
-	}
-
-	public void ShowDiagramForm(DiagramModel model, IDiagramView view)
-	{
-		//var diagramFormPres = new DiagramFormPresenter(new DiagramModel(), new Diagram);
-
-		//diagramFormPres.Run();
 	}
 }

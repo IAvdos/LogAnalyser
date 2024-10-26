@@ -1,5 +1,5 @@
 ﻿public interface IDiagramView : IView
 {
 	event Func<string, DateTime[]> GetStatisticDatesForInstrument;
-	event Func<DateTime, DateTime, int, string, List<DiagramPoint>> GetStatisticReport;
+	event Func<DateTime, DateTime, int, string, string, List<DiagramPoint>> GetStatisticReport;
 }

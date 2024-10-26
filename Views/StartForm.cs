@@ -1,11 +1,11 @@
-
 namespace Views
 {
 	public partial class StartForm : Form, IStartView
 	{
-		public StartForm()
+		public StartForm(string dataFilePath)
 		{
 			InitializeComponent();
+			_dataFilePath = dataFilePath;
 		}
 
 		public event Action<string[]> ReadLogs;
@@ -27,7 +27,7 @@ namespace Views
 		}
 		private void openDiagramFormButton_Click(object sender, EventArgs e)
 		{
-			new DiagramFormPresenter(new DiagramModel(), new DiagramForm()).Run();
+			new DiagramFormPresenter(new DiagramModel(_dataFilePath), new DiagramForm()).Run();
 		}
 
 		public new void Show()
@@ -37,7 +37,9 @@ namespace Views
 
 		private void openReportFormButton_Click(object sender, EventArgs e)
 		{
-			new ReportFormPresenter(new ReportForm(), new ReportModel()).Run();
+			new ReportFormPresenter(new ReportForm(), new ReportModel(_dataFilePath)).Run();
 		}
+
+		string _dataFilePath;
 	}
 }

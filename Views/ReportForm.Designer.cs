@@ -218,6 +218,7 @@
 		saveButton.TabIndex = 18;
 		saveButton.Text = "Сохранить";
 		saveButton.UseVisualStyleBackColor = true;
+		saveButton.Click += saveButton_Click;
 		// 
 		// reportGrid
 		// 

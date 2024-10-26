@@ -203,6 +203,7 @@
 			startPeriodDatePicker.Name = "startPeriodDatePicker";
 			startPeriodDatePicker.Size = new Size(121, 23);
 			startPeriodDatePicker.TabIndex = 10;
+			startPeriodDatePicker.SelectedIndexChanged += startPeriodDatePicker_SelectedIndexChanged;
 			// 
 			// endPeriodDatePicker
 			// 

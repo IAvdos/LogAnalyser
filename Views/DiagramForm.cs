@@ -22,7 +22,9 @@ namespace Views
 
 		private void instrumentNumberBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var statisticDates = GetStatisticDatesForInstrument.Invoke(instrumentNumberBox.SelectedItem.ToString());
+			_instrumentNumber = instrumentNumberBox.SelectedItem.ToString();
+
+			var statisticDates = GetStatisticDatesForInstrument.Invoke(_instrumentNumber);
 
 			if (statisticDates.IsNullOrEmpty())
 			{
@@ -51,7 +53,7 @@ namespace Views
 
 				if (_statisticForDay)
 				{
-					var statisticPoints = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate, 0, _statisticElement);
+					var statisticPoints = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate, 0, _statisticElement, _instrumentNumber);
 					ShowDiagram(statisticPoints, 0);
 				}
 
@@ -59,8 +61,8 @@ namespace Views
 				{
 					foreach (var workShift in _checkedWorkShifts)
 					{
-						var statisticPoints = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate,
-								(int)workShift + 1, _statisticElement);
+						var statisticPoints = GetStatisticReport.Invoke(_startPeriodDate, _endPeriodDate
+							,(int)workShift + 1, _statisticElement, _instrumentNumber);
 
 						ShowDiagram(statisticPoints, (int)workShift + 1);
 					}
@@ -108,13 +110,29 @@ namespace Views
 			}
 		}
 
+		string _instrumentNumber;
 		DateTime _startPeriodDate;
 		DateTime _endPeriodDate;
 		string _statisticElement;
 		bool _statisticForDay = true;
 		IList _checkedWorkShifts;
 
-		public event Func<DateTime, DateTime, int, string, List<DiagramPoint>> GetStatisticReport;
+		private void startPeriodDatePicker_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if(startPeriodDatePicker.DataSource != null)
+			{
+				//TODO: Павел. Можно ли делать даункаст без проверки на его возможность? Ведь я знаю какой тип нaходится в DataSource.
+				//Полагаю что нет.
+				var dates = (List<DateTime>)startPeriodDatePicker.DataSource;
+				var index = startPeriodDatePicker.SelectedIndex;
+				var forvardDates = new DateTime[dates.Count - index];
+				dates.CopyTo(index, forvardDates, 0, forvardDates.Length);
+
+				endPeriodDatePicker.DataSource = forvardDates;
+			}
+		}
+
+		public event Func<DateTime, DateTime, int, string, string, List<DiagramPoint>> GetStatisticReport;
 		public event Func<string, DateTime[]> GetStatisticDatesForInstrument;
 	}
 }

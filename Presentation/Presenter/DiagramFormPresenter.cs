@@ -28,13 +28,13 @@
 	}
 
 	private List<DiagramPoint> GetStatisticDiagramPoints(DateTime startPeriodDay, DateTime endPeriodDay, int workShiftNumber, 
-		string statisticTarget)
+		string statisticTarget, string instrumentNumber)
 	{
 		if(workShiftNumber == 0)
 		{
 			if (_startPeriodDate != startPeriodDay || _endPeriodDate != endPeriodDay || !_isDayStatistic)
 			{
-				_statistic = _model.GetDayStatisticForPeriod(startPeriodDay, endPeriodDay);
+				_statistic = _model.GetDayStatisticForPeriod(startPeriodDay, endPeriodDay, instrumentNumber);
 				_startPeriodDate = startPeriodDay;
 				_endPeriodDate = endPeriodDay;
 				_isDayStatistic = true;
@@ -44,7 +44,7 @@
 		{
 			if (_startPeriodDate != startPeriodDay || _endPeriodDate != endPeriodDay || _isDayStatistic)
 			{
-				_statistic = _model.GetWorkShiftStatisticForPeriod(startPeriodDay, endPeriodDay);
+				_statistic = _model.GetWorkShiftStatisticForPeriod(startPeriodDay, endPeriodDay, instrumentNumber);
 				_startPeriodDate = startPeriodDay;
 				_endPeriodDate = endPeriodDay;
 				_isDayStatistic = false;

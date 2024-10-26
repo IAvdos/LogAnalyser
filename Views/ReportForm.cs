@@ -1,12 +1,11 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System.Collections;
 
 public partial class ReportForm : Form, IReportView
 {
 	public ReportForm()
 	{
 		InitializeComponent();
- 		PrepareReportGrid();
+		PrepareReportGrid();
 	}
 
 	private void showResultButton_Click(object sender, EventArgs e)
@@ -39,14 +38,14 @@ public partial class ReportForm : Form, IReportView
 
 	private bool ReadControlsData()
 	{
-		if(instrumentNumberBox.SelectedIndex == -1)
+		if (instrumentNumberBox.SelectedIndex == -1)
 			return false;
 
 		_instrumentNumber = instrumentNumberBox.SelectedItem.ToString();
 		_startPeriodDate = (DateTime)startPeriodBox.SelectedItem;
 		_endPeriodDate = (DateTime)endPeriodBox.SelectedItem;
 
-		if(dayStatisticButton.Checked)
+		if (dayStatisticButton.Checked)
 			_endPeriodDate = (DateTime)startPeriodBox.SelectedItem;
 
 		if (forWorkShiftButton.Checked)
@@ -125,6 +124,18 @@ public partial class ReportForm : Form, IReportView
 	DateTime _endPeriodDate;
 	int[] _checkedWorkShifts;
 
+	private void saveButton_Click(object sender, EventArgs e)
+	{
+		saveFileDialog1.ShowDialog();
+		var filePath = saveFileDialog1.FileName;
+
+		if(reportGrid.DataSource != null || !filePath.IsNullOrEmpty())
+		{
+			SaveReport.Invoke(_instrumentNumber, _startPeriodDate, _endPeriodDate, _checkedWorkShifts, filePath);
+		}
+	}
+
 	public event Func<string, DateTime[]> GetStatisticDatesForInstrument;
 	public event Func<DateTime, DateTime, int[], string, List<StatisticReport>> GetStatisticReport;
+	public event Action<string, DateTime, DateTime, int[], string> SaveReport;
 }

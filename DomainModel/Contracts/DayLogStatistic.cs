@@ -40,6 +40,8 @@ public class DayLogStatistic
 
 // TODO: finger hole not detected? And fields to db.
 
+
+	/*
 	public WorkShiftStatistic ToWorkShiftStatistic()
 	{
 		return new WorkShiftStatistic()
@@ -62,5 +64,6 @@ public class DayLogStatistic
 			//SummTestModeTime = this.SummTestModeTime
 		};
 	}
+	*/
 }
 

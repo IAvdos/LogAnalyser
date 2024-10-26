@@ -1,4 +1,6 @@
-﻿public class ReportFormPresenter : IPresenter
+﻿using System.Data;
+
+public class ReportFormPresenter : IPresenter
 {
 	public ReportFormPresenter(IReportView view, ReportModel model)
 	{
@@ -9,7 +11,49 @@
 	{
 		_view.GetStatisticDatesForInstrument += GetStatisticDatesForInstrument;
 		_view.GetStatisticReport += GetStatisticReport;
+		_view.SaveReport += SaveReport;
 		_view.Show();
+	}
+
+	private void SaveReport(string instrumentNumber, DateTime start, DateTime end, int[] workShifts, string filePath)
+	{
+		var dtReport = ConnvertToDataTable();
+		var headerData = new string[] {instrumentNumber.ToString(), start.ToString(), end.ToString()};
+
+		_model.SaveReport(headerData, workShifts, dtReport, filePath);
+	}
+
+	private DataTable ConnvertToDataTable()
+	{
+		var result = new DataTable();
+
+		var properties = _report[0].GetType().GetProperties();
+
+		foreach(var property in properties)
+		{
+			result.Columns.Add(property.Name, property.PropertyType);
+		}
+
+		foreach(var line in _report)
+		{
+			var row = result.NewRow();
+
+			row[0] = line.NumberOfWorkShift;
+			row[1] = line.SampleCount;
+			row[2] = line.AnalysisOkCount;
+			row[3] = line.PreparetionCount;
+			row[4] = line.ErrorCount;
+			row[5] = line.SummTestModeTime;
+			row[6] = line.AverageAnalysisTime;
+			row[7] = line.AverageOneSideRuns;
+			row[8] = line.AverageBadSurfaceRate;
+			row[9] = line.AverageSamplePreparation;
+			row[10] = line.PercentBadSample;
+
+			result.Rows.Add(row);
+		}
+
+		return result;
 	}
 
 	private List<StatisticReport> GetStatisticReport(DateTime startPeriod, DateTime endPeriod, int[] workShifts, string instrumentNumber)
@@ -27,7 +71,9 @@
 				(startPeriod, endPeriod, workShifts, instrumentNumber, out calculatedStatistic);
 		}
 
-		return ConvertToStatisticReport(dayLogStatistic, calculatedStatistic);
+		_report = ConvertToStatisticReport(dayLogStatistic, calculatedStatistic);
+
+		return _report;
 	}
 
 	private List<StatisticReport> ConvertToStatisticReport(List<DayLogStatistic> dayLogStatistic, List<CalculatedStatistic> calculatedStatistic)
@@ -62,4 +108,5 @@
 
 	IReportView _view;
 	ReportModel _model;
+	List<StatisticReport> _report;
 }

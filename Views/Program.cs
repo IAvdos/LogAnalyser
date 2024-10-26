@@ -1,3 +1,5 @@
+using System.Configuration;
+
 namespace Views
 {
 	internal static class Program
@@ -12,7 +14,11 @@ namespace Views
 			// To customize application configuration such as set high DPI settings or default font,
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
-			var startPresenter = new StartFormPresenter(new StartFormModel(), new StartForm());
+
+			var path = ConfigurationManager.AppSettings["Excel_file_path"].ToString();
+			var dataFilePath = new FileInfo(path).FullName;
+
+			var startPresenter = new StartFormPresenter(new StartFormModel(dataFilePath), new StartForm(dataFilePath));
 			startPresenter.Run();
 		}
 	}

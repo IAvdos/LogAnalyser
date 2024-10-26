@@ -1,24 +1,27 @@
 ﻿public class DiagramModel
 {
-	public void GetCountPerDayAllTime()
+    private DiagramModel(){}
+    public DiagramModel(string excelFilePaht)
+    {
+		_excelOperator = new ExcelOperator(excelFilePaht);
+    }
+    public void GetCountPerDayAllTime()
 	{
-		_excelOperator = new ExcelOperator();
-
 		var data = _excelOperator.ReadData();
 	}
 
-	public List<CalculatedStatistic> GetDayStatisticForPeriod(DateTime start, DateTime end)
+	public List<CalculatedStatistic> GetDayStatisticForPeriod(DateTime start, DateTime end, string instrumentNumber)
 	{
-		var statisticForActualInstrument = GetStatisticForInstrument(_instrumentNumber);
+		var statisticForActualInstrument = GetStatisticForInstrument(instrumentNumber);
 
 		var result = StatisticProcessor.GetDayStatisticForPreriod(statisticForActualInstrument, start, end);
 
 		return result;
 	}
 
-	public List<CalculatedStatistic> GetWorkShiftStatisticForPeriod(DateTime start, DateTime end)
+	public List<CalculatedStatistic> GetWorkShiftStatisticForPeriod(DateTime start, DateTime end, string instrumentNumber)
 	{
-		var statisticForActualInstrument = GetStatisticForInstrument(_instrumentNumber);
+		var statisticForActualInstrument = GetStatisticForInstrument(instrumentNumber);
 
 		var result = StatisticProcessor.GetWorkShiftStatisticForPreriod(statisticForActualInstrument, start, end);
 
@@ -27,17 +30,13 @@
 
 	public DateTime[] GetStatisticsDates(string instrumentNumber)
 	{
-		_instrumentNumber = instrumentNumber;
-
-		var statisticForActualInstrument = GetStatisticForInstrument(_instrumentNumber);
+		var statisticForActualInstrument = GetStatisticForInstrument(instrumentNumber);
 
 		return statisticForActualInstrument.Select(d => d.LogDate).Order().Distinct().ToArray();
 	}
 
 	List<DayLogStatistic> GetStatisticForInstrument(string intstrumentNumber)
 	{
-		if(_excelOperator == null)
-			_excelOperator = new ExcelOperator();
 		//TODO: chek NULL
 		var statisticForActualInstrument = _excelOperator.ReadData().Where(l => l.InstrumentNumber == intstrumentNumber).ToList();
 
@@ -63,5 +62,4 @@
 	*/
 
 	ExcelOperator _excelOperator;
-	string _instrumentNumber;
 }

@@ -3,11 +3,14 @@
 	LogAnalisisManager _logAnalisisManager = null;
 	ExcelOperator _excelOperator;
 
-	public IEnumerable<ReadLogFileStatus> OperateLogs(string[] filePahts)
-	{
+    public StartFormModel(string dataFilePath)
+    {
 		_logAnalisisManager = new ();
-		_excelOperator = new ExcelOperator();
+		_excelOperator = new ExcelOperator(dataFilePath);
+    }
 
+    public IEnumerable<ReadLogFileStatus> OperateLogs(string[] filePahts)
+	{
 		List<ReadLogFileStatus> statusfiles;
 
 		var logStatistic = _logAnalisisManager.GetDayLogStatistics(filePahts, out statusfiles);

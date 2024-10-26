@@ -1,15 +1,15 @@
-﻿using System.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using OfficeOpenXml;
 
 public class ExcelOperator
 {
 	string _dataFilePath;
-// TODO: Get file paht in construstor
-	public ExcelOperator()
+    private ExcelOperator(){}
+
+    public ExcelOperator(string excelFilePath)
 	{
 		ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-		_dataFilePath = GetFilePath();
+		_dataFilePath = excelFilePath;
 	}
 
 	public bool SaveStatistic(List<DayLogStatistic> statistics)
@@ -40,9 +40,8 @@ public class ExcelOperator
 		using (var package = new ExcelPackage(_dataFilePath))
 		{
 			var tableAddres = package.Workbook.Worksheets["First"].Dimension.ToString();
-			data = package.Workbook.Worksheets["First"].Cells[tableAddres].
-					ToCollectionWithMappings<DayLogStatistic>(RowToDayDayLogSatatistic,
-						options => options.HeaderRow = 0);
+			data = package.Workbook.Worksheets["First"].Cells[tableAddres]
+				.ToCollectionWithMappings<DayLogStatistic>(RowToDayDayLogSatatistic, options => options.HeaderRow = 0);
 		}
 
 		return data;
@@ -107,14 +106,6 @@ public class ExcelOperator
 		}
 
 		return false;
-	}
-
-	string GetFilePath()
-	{
-		var path = ConfigurationManager.AppSettings["Excel_file_path"].ToString();
-		var realPath = new FileInfo(path).FullName;
-
-		return realPath;
 	}
 
 	bool IsFileExistAndFree()

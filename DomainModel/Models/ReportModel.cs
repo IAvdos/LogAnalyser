@@ -1,7 +1,16 @@
-﻿public class ReportModel
+﻿using System.Data;
+using Xceed.Document.NET;
+
+public class ReportModel
 {
-	public List<DayLogStatistic> GetUnionStatisticForPeriod(DateTime startPeriod, DateTime endPeriod, string instrumentNumber,
-		out List<CalculatedStatistic> calculatedStatistic)
+    public ReportModel(string excelFilePath)
+    {
+        _excelOperator = new ExcelOperator(excelFilePath);
+		_wordOperator = new WordOperator();
+    }
+
+    public List<DayLogStatistic> GetUnionStatisticForPeriod(DateTime startPeriod, DateTime endPeriod, string instrumentNumber
+		,out List<CalculatedStatistic> calculatedStatistic)
 	{
 		var statisticForActualInstrument = GetStatisticForInstrument(instrumentNumber).
 				Where(i => i.LogDate >= startPeriod && i.LogDate <= endPeriod);
@@ -71,13 +80,20 @@
 
 	List<DayLogStatistic> GetStatisticForInstrument(string intstrumentNumber)
 	{
-		if (_excelOperator == null)
-			_excelOperator = new ExcelOperator();
 		//TODO: chek NULL
 		var statisticForActualInstrument = _excelOperator.ReadData().Where(l => l.InstrumentNumber == intstrumentNumber).ToList();
 
 		return statisticForActualInstrument;
 	}
+	//TODO: write
+	public void SaveReport(string[] headerData, int[] workShifts, DataTable dtReport, string filePath)
+	{
+		var reportBody = ReportBuilder.BuildReportBody(headerData);
+		var reportTable = ReportBuilder.BuildTableReport(workShifts, dtReport);
+
+		_wordOperator.SaveFile(reportBody, reportTable, filePath);
+	}
 
 	ExcelOperator _excelOperator;
+	WordOperator _wordOperator;
 }
