@@ -117,7 +117,7 @@
 			// axisYParameterBox
 			// 
 			axisYParameterBox.FormattingEnabled = true;
-			axisYParameterBox.Items.AddRange(new object[] { "Количество проб", "Количество \"заточек\"", "Количество ощибок", "Время Test mode", "Среднее количество \"заточек\"", "Среднее время анализа", "Средний процент плохой пов. пробы", "Среднее количество прожигов на стороне", "Процент брака" });
+			axisYParameterBox.Items.AddRange(new object[] { "Количество проб", "Количество \"заточек\"", "Количество ошибок", "Время Test mode", "Среднее количество \"заточек\"", "Среднее время анализа", "Средний процент плохой пов. пробы", "Среднее количество прожигов на стороне", "Процент брака" });
 			axisYParameterBox.Location = new Point(100, 103);
 			axisYParameterBox.Name = "axisYParameterBox";
 			axisYParameterBox.Size = new Size(199, 23);

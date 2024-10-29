@@ -1,0 +1,1 @@
+Необходимо указать имя файла .xlsx, в App.config секция "Excel_file_path".
