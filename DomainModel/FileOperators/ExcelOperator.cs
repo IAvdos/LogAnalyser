@@ -4,9 +4,9 @@ using OfficeOpenXml;
 public class ExcelOperator
 {
 	string _dataFilePath;
-    private ExcelOperator(){}
+	private ExcelOperator(){}
 
-    public ExcelOperator(string excelFilePath)
+	public ExcelOperator(string excelFilePath)
 	{
 		ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 		_dataFilePath = excelFilePath;

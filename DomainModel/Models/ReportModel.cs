@@ -40,11 +40,11 @@ public class ReportModel
 		return unionStatistic;
 	}
 
-	public List<DayLogStatistic> GetUnionWorkShiftStatisticForPeriod(DateTime startPeriod, DateTime endPeriod, int[] workShifts, string instrumentNumber,
-			out List<CalculatedStatistic> calculatedStatistics)
+	public List<DayLogStatistic> GetUnionWorkShiftStatisticForPeriod(DateTime startPeriod, DateTime endPeriod, int[] workShifts, string instrumentNumber
+		,out List<CalculatedStatistic> calculatedStatistics)
 	{
-		var statisticForActualInstrument = GetStatisticForInstrument(instrumentNumber).
-				Where(i => i.LogDate >= startPeriod && i.LogDate <= endPeriod).Where(j => workShifts.Contains(j.NumberOfWorkShift - 1));
+		var statisticForActualInstrument = GetStatisticForInstrument(instrumentNumber)
+			.Where(i => i.LogDate >= startPeriod && i.LogDate <= endPeriod).Where(j => workShifts.Contains(j.NumberOfWorkShift - 1));
 
 		var unionStatistic = statisticForActualInstrument.GroupBy(s => s.NumberOfWorkShift).Select(g => new DayLogStatistic
 		{
@@ -80,18 +80,19 @@ public class ReportModel
 
 	List<DayLogStatistic> GetStatisticForInstrument(string intstrumentNumber)
 	{
-		//TODO: chek NULL
+		//TODO: Павел. Метод ReadData() может вернуть null, соответственно Where бросит исключение. Но в приложении уже производилась
+		// проверка ReadData() в другом блоке, и если там null, то этот метод (GetStatisticForInstrument) вызываться небудет
+		//(форма не позволит). Стоит на это расчитывать, или делать проверку ВСЕГДА И ВСЕГО?
 		var statisticForActualInstrument = _excelOperator.ReadData().Where(l => l.InstrumentNumber == intstrumentNumber).ToList();
 
 		return statisticForActualInstrument;
 	}
-	//TODO: write
-	public void SaveReport(string[] headerData, int[] workShifts, DataTable dtReport, string filePath)
+
+	public void SaveReport(string[] headerData, DataTable dtReport, string filePath)
 	{
 		var reportBody = ReportBuilder.BuildReportBody(headerData);
-		var reportTable = ReportBuilder.BuildTableReport(workShifts, dtReport);
 
-		_wordOperator.SaveFile(reportBody, reportTable, filePath);
+		_wordOperator.SaveFile(reportBody, dtReport, filePath);
 	}
 
 	ExcelOperator _excelOperator;

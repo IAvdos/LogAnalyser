@@ -1,6 +1,4 @@
-﻿using System;
-
-public static class TimeSpanExtention
+﻿public static class TimeSpanExtention
 {
 	// TODO: Павел, этический вопрос. Я знаю (уверен) что здесь value.Days всегда будет = 0. И поэтому непреобразую дни в минуты.
 	// Но если ктото в дальнейшем будет обращаться к этому методу, он получит некорректный результат.

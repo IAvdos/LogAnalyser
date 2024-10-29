@@ -89,9 +89,8 @@
 			var analysisCount = logStatistic.PreparetionCount - logStatistic.BadSurfaceSampleCount;
 			var averageAnalysisTime = new TimeSpan(logStatistic.SummAnalysisTime.Ticks 
 				/ (logStatistic.SampleCount == 0 ? 1 : logStatistic.SampleCount));
-			var averageSamplePreparetion = logStatistic.SampleCount == 0 ? 0 : Math.Round((decimal)logStatistic.PreparetionCount /
-					logStatistic.SampleCount, 1);
-			// TODO: Runs for one side or sample?
+			var averageSamplePreparetion = logStatistic.SampleCount == 0 ? 0 : Math.Round((decimal)logStatistic.PreparetionCount 
+				/ logStatistic.SampleCount, 1);
 			var averageOneSideRuns = analysisCount == 0 ? 0 : Math.Round((decimal)logStatistic.RunsCount / analysisCount, 1);
 			var averageBadSurfaceRate = analysisCount == 0 ? 0 : Math.Round(logStatistic.SummBadSurfaceRate / analysisCount, 1);
 			var badSamplePercent = analysisCount == 0 ? 0 : Math.Round((decimal)(logStatistic.SampleCount - logStatistic.AnalysisOkCount) /

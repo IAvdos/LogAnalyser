@@ -1,11 +1,11 @@
 ﻿public class DiagramModel
 {
-    private DiagramModel(){}
-    public DiagramModel(string excelFilePaht)
-    {
+	private DiagramModel(){}
+	public DiagramModel(string excelFilePaht)
+	{
 		_excelOperator = new ExcelOperator(excelFilePaht);
-    }
-    public void GetCountPerDayAllTime()
+	}
+	public void GetCountPerDayAllTime()
 	{
 		var data = _excelOperator.ReadData();
 	}

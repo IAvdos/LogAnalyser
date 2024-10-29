@@ -59,31 +59,40 @@
 	private List<DiagramPoint> GetDiagramPoints(List<CalculatedStatistic> statistic, int workShiftNumber, string statisticTarget)
 	{
 		if(statisticTarget == "Количество проб")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d =>  new DiagramPoint(d.LogDate, d.SampleCount)).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=>  new DiagramPoint(d.LogDate, d.SampleCount)).ToList();
 
 		if(statisticTarget == "Количество \"заточек\"")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, d.PreparetionCount)).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate, d.PreparetionCount)).ToList();
 
 		if (statisticTarget == "Количество ощибок")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, d.ErrorCount)).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate, d.ErrorCount)).ToList();
 
 		if (statisticTarget == "Время Test mode")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, Math.Round(d.SummTestModeTime.ToMinutes(), 2))).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate, Math.Round(d.SummTestModeTime.ToMinutes(), 2))).ToList();
 
 		if (statisticTarget == "Среднее количество \"заточек\"")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, (double)d.AverageSamplePreparation)).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate, (double)d.AverageSamplePreparation)).ToList();
 
 		if (statisticTarget == "Среднее время анализа")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate,  Math.Round(d.AverageAnalysisTime.ToMinutes(), 2))).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate,  Math.Round(d.AverageAnalysisTime.ToMinutes(), 2))).ToList();
 
 		if (statisticTarget == "Средний процент плохой пов. пробы")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, (double)d.AverageBadSurfaceRate)).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate, (double)d.AverageBadSurfaceRate)).ToList();
 
 		if (statisticTarget == "Среднее количество прожигов на стороне")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, (double)d.AverageOneSideRuns)).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate, (double)d.AverageOneSideRuns)).ToList();
 
 		if (statisticTarget == "Процент брака")
-			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d => new DiagramPoint(d.LogDate, (double)d.PercentBadSample)).ToList();
+			return statistic.Where(s => s.NumberOfWorkShift == workShiftNumber).Select(d 
+				=> new DiagramPoint(d.LogDate, (double)d.PercentBadSample)).ToList();
 
 		return null;
 	}

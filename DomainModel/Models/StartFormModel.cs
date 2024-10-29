@@ -3,13 +3,13 @@
 	LogAnalisisManager _logAnalisisManager = null;
 	ExcelOperator _excelOperator;
 
-    public StartFormModel(string dataFilePath)
-    {
+	public StartFormModel(string dataFilePath)
+	{
 		_logAnalisisManager = new ();
 		_excelOperator = new ExcelOperator(dataFilePath);
-    }
+	}
 
-    public IEnumerable<ReadLogFileStatus> OperateLogs(string[] filePahts)
+	public IEnumerable<ReadLogFileStatus> OperateLogs(string[] filePahts)
 	{
 		List<ReadLogFileStatus> statusfiles;
 

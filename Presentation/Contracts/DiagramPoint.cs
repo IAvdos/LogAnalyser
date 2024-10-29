@@ -5,7 +5,7 @@
 		xAxis = date;
 		yAxis = value;
 	}
+
 	public DateTime xAxis {  get; set; }
 	public double yAxis { get; set; }
 }
-

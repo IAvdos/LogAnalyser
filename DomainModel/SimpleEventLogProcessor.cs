@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 public class SimpleEventLogProcessor : ILogProcessor
 {
@@ -90,11 +89,11 @@ public class SimpleEventLogProcessor : ILogProcessor
 				startErrorTime = messageTime;
 				continue;
 			}
-			//TODO: incorrect results, fix this
+
 			if (Regex.IsMatch(line, "Start Automatic Mode"))
 			{
-				_dayLogStatistics[actualPart].SummTestModeTime = new TimeSpan(_dayLogStatistics[actualPart].SummTestModeTime.Ticks +
-						(messageTime.Ticks - startErrorTime.Ticks));
+				_dayLogStatistics[actualPart].SummTestModeTime = new TimeSpan(_dayLogStatistics[actualPart].SummTestModeTime.Ticks 
+					+ (messageTime.Ticks - startErrorTime.Ticks));
 				userAction = false;
 				continue;
 			}

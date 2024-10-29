@@ -15,14 +15,14 @@ public class ReportFormPresenter : IPresenter
 		_view.Show();
 	}
 
-	private void SaveReport(string instrumentNumber, DateTime start, DateTime end, int[] workShifts, string filePath)
+	private void SaveReport(string instrumentNumber, DateTime start, DateTime end, string filePath, string areaName)
 	{
 		var dtReport = ConnvertToDataTable();
-		var headerData = new string[] {instrumentNumber.ToString(), start.ToString(), end.ToString()};
+		var headerData = new string[] {instrumentNumber.ToString(), areaName, start.ToString("dd.MM.yyyy"), end.ToString("dd.MM.yyyy") };
 
-		_model.SaveReport(headerData, workShifts, dtReport, filePath);
+		_model.SaveReport(headerData, dtReport, filePath);
 	}
-
+	//TODO: Павел. Методу ниже по идее не место в этом классе. Стоит ли в таких случаях делать отдельный класс, под один метод?
 	private DataTable ConnvertToDataTable()
 	{
 		var result = new DataTable();
@@ -31,7 +31,7 @@ public class ReportFormPresenter : IPresenter
 
 		foreach(var property in properties)
 		{
-			result.Columns.Add(property.Name, property.PropertyType);
+			result.Columns.Add(property.Name, typeof(string));
 		}
 
 		foreach(var line in _report)
@@ -43,8 +43,8 @@ public class ReportFormPresenter : IPresenter
 			row[2] = line.AnalysisOkCount;
 			row[3] = line.PreparetionCount;
 			row[4] = line.ErrorCount;
-			row[5] = line.SummTestModeTime;
-			row[6] = line.AverageAnalysisTime;
+			row[5] = line.SummTestModeTime.ToString("hh\\:mm\\:ss");
+			row[6] = line.AverageAnalysisTime.ToString("mm\\:ss"); 
 			row[7] = line.AverageOneSideRuns;
 			row[8] = line.AverageBadSurfaceRate;
 			row[9] = line.AverageSamplePreparation;

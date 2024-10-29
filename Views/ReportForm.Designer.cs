@@ -87,6 +87,7 @@
 		startPeriodBox.Name = "startPeriodBox";
 		startPeriodBox.Size = new Size(121, 23);
 		startPeriodBox.TabIndex = 4;
+		startPeriodBox.SelectedIndexChanged += startPeriodBox_SelectedIndexChanged;
 		// 
 		// label4
 		// 
@@ -219,6 +220,11 @@
 		saveButton.Text = "Сохранить";
 		saveButton.UseVisualStyleBackColor = true;
 		saveButton.Click += saveButton_Click;
+		// 
+		// saveFileDialog1
+		// 
+		saveFileDialog1.DefaultExt = "docx";
+		saveFileDialog1.Filter = "Text documents (.docx)|*.docx";
 		// 
 		// reportGrid
 		// 

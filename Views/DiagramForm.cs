@@ -110,13 +110,6 @@ namespace Views
 			}
 		}
 
-		string _instrumentNumber;
-		DateTime _startPeriodDate;
-		DateTime _endPeriodDate;
-		string _statisticElement;
-		bool _statisticForDay = true;
-		IList _checkedWorkShifts;
-
 		private void startPeriodDatePicker_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if(startPeriodDatePicker.DataSource != null)
@@ -132,6 +125,14 @@ namespace Views
 			}
 		}
 
+		string _instrumentNumber;
+		DateTime _startPeriodDate;
+		DateTime _endPeriodDate;
+		string _statisticElement;
+		bool _statisticForDay = true;
+		IList _checkedWorkShifts;
+
+		//TODO: Павел. Меня беспокоит большое количество параметров для событий и как следствие методов. Это норм?
 		public event Func<DateTime, DateTime, int, string, string, List<DiagramPoint>> GetStatisticReport;
 		public event Func<string, DateTime[]> GetStatisticDatesForInstrument;
 	}

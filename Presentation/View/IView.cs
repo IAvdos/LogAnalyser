@@ -3,4 +3,3 @@
 	void Show();
 	void Close();
 }
-

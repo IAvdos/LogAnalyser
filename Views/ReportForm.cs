@@ -119,23 +119,49 @@ public partial class ReportForm : Form, IReportView
 		workShiftNumberBox.Enabled = false;
 	}
 
+	private void saveButton_Click(object sender, EventArgs e)
+	{
+		if (areaNameBox.Text.IsNullOrEmpty())
+		{
+			MessageBox.Show("Укажите участок.");
+		}
+		if (reportGrid.DataSource == null)
+		{
+			MessageBox.Show("Необходимо расчитать данные отчета.");
+		}
+		else
+		{
+			saveFileDialog1.ShowDialog();
+			var filePath = saveFileDialog1.FileName;
+
+			if (reportGrid.DataSource != null || !filePath.IsNullOrEmpty())
+			{
+				SaveReport.Invoke(_instrumentNumber, _startPeriodDate, _endPeriodDate, filePath, areaNameBox.Text);
+			}
+		}
+	}
+
 	string _instrumentNumber;
 	DateTime _startPeriodDate;
 	DateTime _endPeriodDate;
 	int[] _checkedWorkShifts;
 
-	private void saveButton_Click(object sender, EventArgs e)
+	private void startPeriodBox_SelectedIndexChanged(object sender, EventArgs e)
 	{
-		saveFileDialog1.ShowDialog();
-		var filePath = saveFileDialog1.FileName;
-
-		if(reportGrid.DataSource != null || !filePath.IsNullOrEmpty())
+		if (startPeriodBox.DataSource != null)
 		{
-			SaveReport.Invoke(_instrumentNumber, _startPeriodDate, _endPeriodDate, _checkedWorkShifts, filePath);
+			var dates = (List<DateTime>)startPeriodBox.DataSource;
+			var index = startPeriodBox.SelectedIndex;
+			var forvardDates = new DateTime[dates.Count - index];
+			dates.CopyTo(index, forvardDates, 0, forvardDates.Length);
+
+			endPeriodBox.DataSource = forvardDates;
 		}
 	}
 
 	public event Func<string, DateTime[]> GetStatisticDatesForInstrument;
+
+	//TODO: Павел. Меня беспокоит большое количество параметров для событий и как следствие методов. Это норм?
 	public event Func<DateTime, DateTime, int[], string, List<StatisticReport>> GetStatisticReport;
-	public event Action<string, DateTime, DateTime, int[], string> SaveReport;
+	public event Action<string, DateTime, DateTime, string, string> SaveReport;
 }
